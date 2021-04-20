@@ -1,0 +1,5 @@
+# Service to indicate Blaster Controller state.
+string blaster_state
+---
+# Error flag indicating successful/failed service call.
+int32 error
