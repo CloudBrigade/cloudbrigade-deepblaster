@@ -1,10 +1,12 @@
 # Cloud Brigade DeepBlaster project
 
-![DeepBlasterThumb](media/DeepBlasterThumb.jpg)
+![DeepBlasterThumb](media/deepblaster-thumb.jpg)
 
 ## Overview
 
 The DeepBlaster project is an sample application built on top of the existing AWS DeepRacer application, and uses an object detection machine learning model through which the AWS DeepRacer device can identify and target an object. For detailed information on DeepBlaster project, see DeepBlaster project [Getting Started](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md) section.
+
+Read more about the story behind the project and the details of the design and development process on the [DeepBlaster Webpage](https://www.cloudbrigade.com/deepblaster/)
 
 ## License
 
@@ -325,6 +327,7 @@ Applies to the object_detection_node
 ## Resources
 
 * AWS DeepRacer Opensource getting started: [https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md](https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md)
+* Cloud Brigade DeepBlaster project webpage [https://www.cloudbrigade.com/deepblaster/](https://www.cloudbrigade.com/deepblaster/)
 * Cloud Brigade DeepBlaster project getting started: [https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md)
 * Instructions to download and optimize the object detection model: [https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/download-and-convert-object-detection-model.md](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/download-and-convert-object-detection-model.md)
 * Instructions to calibrate your AWS DeepRacer: [https://docs.aws.amazon.com/deepracer/latest/developerguide/deepracer-calibrate-vehicle.html](https://docs.aws.amazon.com/deepracer/latest/developerguide/deepracer-calibrate-vehicle.html)

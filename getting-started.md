@@ -70,7 +70,7 @@ The DeepBlaster project introduces a new function in the AWS Deepracer device, a
 
 When the DeepBlaster is armed, the DeepRacer devices takes the camera image input from the front facing camera connected to the car and runs it through the machine learning model to identify an object ("bottle" by default) and calculate information required to aim the turret toward the object. Similar to the autonomous mode, there is an perception-inference-action step involved here as well, where the inference is done by an object detection model to obtain the bounding box data for a object identified in the image. Each perception-inference-action step involves a pipeline of a series of ROS messages published/subscribed at various nodes, to publish camera image, and then to publish the object detection deltas identifying person’s position and corresponding action data to follow the person.
 
-![deepblaster-workflow](media/deepblaster_workflow.jpg)
+![deepblaster-workflow](media/deepblaster-workflow.jpg)
 
 
 ### Inference (Decision)
@@ -121,17 +121,17 @@ Based on the data collected, we get the following brackets:
 **Targeting:**
 
 * DEFAULT: No movement, when the object is positioned on the straight line of sight with respect to camera
-* SLOW_LEFT: With respect to 15 cm Left
-* FAST_LEFT: With respect to 45 cm Left
-* SLOW_RIGHT: With respect to 15 cm Right
-* FAST_RIGHT: With respect to 45 cm Right
+* SHORT_LEFT: With respect to 15 cm Left
+* FAR_LEFT: With respect to 45 cm Left
+* SHORT_RIGHT: With respect to 15 cm Right
+* FAR_RIGHT: With respect to 45 cm Right
 * FIRE: Object detected, when the object is positioned on the straight line of sight with respect to camera
 
 **Firing:**
 
 * DEFAULT: Motors Off
 * FLYWHEEL: Object detected
-* TRIGGER: Object detection delta is zero
+* TRIGGER: Turret servo moved into position
 
 For every combination of the normalized delta combination in x (delta_x), based on the above brackets of actions for aiming and firing, an action is planned by the deepblaster_targeting_node and published to be picked up by the deepblaster_ctrl_node when the node has been armed.
 
@@ -166,9 +166,12 @@ If you loved Battlebots, this opens the door to autonomous robot battles. What c
 
 The DeepBlaster project leverages most of the concepts used in the AWS DeepRacer application, and adds a few more. You can learn more about the AWS DeepRacer core application [here](https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md).
 
+Read more about the story behind the project and the details of the design and development process on the [DeepBlaster Webpage](https://www.cloudbrigade.com/deepblaster/)
+
 If you're wondering who made this crazy contraption, you can find him at his consulting company [Cloud Brigade](https://www.cloudbrigade.com), on [LinkedIn](https://www.linkedin.com/in/chris-miller-6470751/), or you can email Chris at [ctodd@cloudbrigade.com](ctodd@cloudbrigade.com  )
 
 ## Resources
 
+* Cloud Brigade DeepBlaster project webpage [https://www.cloudbrigade.com/deepblaster/](https://www.cloudbrigade.com/deepblaster/)
 * Cloud Brigade DeepBlaster Opensource getting started: [https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md](https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md)
 * Cloud Brigade DeepBlaster device modes of operation: [https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/modes-of-operation.md](https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/modes-of-operation.md).
