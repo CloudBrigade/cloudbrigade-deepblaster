@@ -1,8 +1,10 @@
 # Cloud Brigade DeepBlaster project
 
+![DeepBlasterThumb](media/DeepBlasterThumb.jpg)
+
 ## Overview
 
-The DeepBlaster project is an sample application built on top of the existing AWS DeepRacer application uses object detection machine learning model through which the AWS DeepRacer device can identify and target an object. For detailed information on DeepBlaster project, see DeepBlaster project [Getting Started](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md) section.
+The DeepBlaster project is an sample application built on top of the existing AWS DeepRacer application, and uses an object detection machine learning model through which the AWS DeepRacer device can identify and target an object. For detailed information on DeepBlaster project, see DeepBlaster project [Getting Started](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md) section.
 
 ## License
 
@@ -15,6 +17,8 @@ The source code is released under [Apache 2.0](https://www.apache.org/licenses/L
 The AWS DeepRacer device comes with all the pre-requisite packages and libraries installed to run the DeepBlaster project. More details about pre installed set of packages and libraries on the DeepRacer, and installing required build systems can be found in the [Getting Started](https://github.com/awsdeepracer/aws-deepracer-launcher/blob/main/getting-started.md) section of the AWS DeepRacer Opensource page. The DeepBlaster project requires the AWS DeepRacer application to be installed on the device as it leverages most of the packages from the core application.
 
 The following are the additional software and hardware requirements to get the DeepBlaster project to work on the AWS DeepRacer device.
+
+1. **Hardware:** You will need to obtain or design and build the turret and blaster. At the time of this writing, the turret and bracket exist as a prototype with improvements pending. You can read more about the necessary project hardware components in the [Getting Started](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/getting-started.md) section.
 
 1. **Download and Optimize the object detection model:** Follow the [instructions](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/download-and-convert-object-detection-model.md) to download and optimize the object detection model and copy it to the required location on the AWS DeepRacer device.
 
@@ -69,24 +73,24 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Clone the async_web_server_cpp, web_video_server and rplidar_ros dependency packages on the DeepRacer device:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && ./install_dependencies.sh
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && ./install_dependencies.sh
 
 1. Fetch unreleased dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
         rosws update
 
 1. Resolve the dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
 
 1. Build the packages in the workspace
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && colcon build
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && colcon build
 
 
 ## Usage
@@ -109,7 +113,7 @@ To launch the DeepBlaster sample application as root user on the AWS DeepRacer d
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Launch the nodes required for DeepBlaster project:
 
@@ -125,7 +129,7 @@ Once the deepblaster_launcher has been kicked-off, open up a adjacent new termin
 
 1. Navigate to the DeepBlaster workspace:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Source the ROS2 Foxy setup bash script:
 
@@ -133,7 +137,7 @@ Once the deepblaster_launcher has been kicked-off, open up a adjacent new termin
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Enable “deepblaster” mode using the below ros2 service call
 

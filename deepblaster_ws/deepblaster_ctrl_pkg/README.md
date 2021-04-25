@@ -40,7 +40,7 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Fetch unreleased dependencies:
 

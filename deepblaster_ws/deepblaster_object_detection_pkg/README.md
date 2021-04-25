@@ -4,6 +4,19 @@
 
 The Object Detection ROS package creates the deepblaster_object_detection_node which is responsible for collecting sensor data (camera images) from sensor_fusion_pkg and running them through the object detection model to find a specified object and providing normalized delta of the found object from target position. This delta value is published using a ROS publisher as DetectionDeltaMsg data. For more information about the DeepBlaster project, see [DeepBlaster project](https://github.com/CloudBrigade/cloudbrigade-deepblaster).
 
+This package was slightly modified from the original AWS DeepRacer Object Detection package to provide the following changes :
+
+* Overlay object coordinates on web_video_server preview screen
+* Use the "bottle" object from the AWS provided object detection model
+
+The preview screen can be accessed on your DeepRacer device by the following URL :
+
+[http://\<DeepRacer-IP-Address\>:8080/stream_viewer?topic=/object_detection_pkg/detection_display](http://DeepRacer-IP-Address:8080/stream_viewer?topic=/object_detection_pkg/detection_display)
+
+Once you have your DeepBlaster project working, you can explore one of 90 object types by changing the configuration in the constants.py file in this package.
+
+You are encouraged to create your own model to detect the object of your choice. Please make sure the object in inanimate...
+
 ## License
 
 The source code is released under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
@@ -67,21 +80,21 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Fetch unreleased dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
         rosws update
 
 1. Resolve the dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && apt-get update
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && apt-get update
         rosdep install -i --from-path . --rosdistro foxy -y
 
 1. Build the deepblaster_object_detection_pkg and deepracer_interfaces_pkg:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && colcon build --packages-select deepblaster_object_detection_pkg deepracer_interfaces_pkg
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && colcon build --packages-select deepblaster_object_detection_pkg deepracer_interfaces_pkg
 
 
 ## Usage
@@ -98,7 +111,7 @@ Configure the launch file to specify which device to use for inference (for more
 
 1. Navigate to the DeepBlaster workspace:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Source the ROS2 Foxy setup bash and OpenVINO bash script:
 
@@ -107,7 +120,7 @@ Configure the launch file to specify which device to use for inference (for more
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Launch the object_detection_node using the launch script:
 

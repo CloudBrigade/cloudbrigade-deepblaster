@@ -42,21 +42,21 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Fetch unreleased dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
         rosws update
 
 1. Resolve the dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && apt-get update
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && apt-get update
         rosdep install -i --from-path . --rosdistro foxy -y
 
 1. Build the deepblaster_targeting_pkg and deepracer_interfaces_pkg:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && colcon build --packages-select deepblaster_targeting_pkg deepracer_interfaces_pkg
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && colcon build --packages-select deepblaster_targeting_pkg deepracer_interfaces_pkg
 
 
 ## Usage
@@ -73,7 +73,7 @@ To launch the built deepblaster_targeting_node as root user on the DeepRacer dev
 
 1. Navigate to the DeepBlaster workspace:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Source the ROS2 Foxy setup bash script:
 
@@ -81,7 +81,7 @@ To launch the built deepblaster_targeting_node as root user on the DeepRacer dev
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Launch the deepblaster_targeting_node using the launch script:
 

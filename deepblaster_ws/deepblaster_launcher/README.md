@@ -68,24 +68,24 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Clone the async_web_server_cpp, web_video_server and rplidar_ros dependency packages on the DeepRacer device:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && ./install_dependencies.sh
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && ./install_dependencies.sh
 
 1. Fetch unreleased dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
         rosws update
 
 1. Resolve the dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
 
 1. Build the packages in the workspace
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && colcon build
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && colcon build
 
 
 ## Usage
@@ -108,7 +108,7 @@ To launch the DeepBlaster sample application as root user on the Cloud Brigade D
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Launch the nodes required for DeepBlaster project:
 
@@ -124,7 +124,7 @@ Once the deepblaster_launcher has been kicked-off, open up a adjacent new termin
 
 1. Navigate to the DeepBlaster workspace:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Source the ROS2 Foxy setup bash script:
 
@@ -132,7 +132,7 @@ Once the deepblaster_launcher has been kicked-off, open up a adjacent new termin
 
 1. Source the setup script for the installed packages:
 
-        source ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/install/setup.bash
+        source ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/install/setup.bash
 
 1. Enable “deepblaster” mode using the below ros2 service call
 

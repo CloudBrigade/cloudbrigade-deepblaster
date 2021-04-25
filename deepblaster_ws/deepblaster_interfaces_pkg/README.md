@@ -43,15 +43,15 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 1. Clone the entire DeepBlaster project on the DeepRacer device.
 
         git clone https://github.com/CloudBrigade/cloudbrigade-deepblaster.git
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/
 
 1. Resolve the dependencies:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && rosdep install -i --from-path . --rosdistro foxy -y
 
 1. Build the deepracer_interfaces_pkg:
 
-        cd ~/deepracer_ws/cb-deepblaster-project/deepblaster_ws/ && colcon build --packages-select deepracer_interfaces_pkg
+        cd ~/deepracer_ws/cloudbrigade-deepblaster/deepblaster_ws/ && colcon build --packages-select deepracer_interfaces_pkg
 
 ## Resources
 

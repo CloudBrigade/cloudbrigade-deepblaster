@@ -1,6 +1,6 @@
 # DeepBlaster Sample Application
 
-The DeepBlaster project is a sample application built on top of the existing AWS DeepRacer application which uses object detection machine learning model through which the Cloud Brigade DeepBlaster device can identify and target an object. Explore the DeepBlaster project by cloning the [cloudbrigade-deepblaster-project](https://github.com/CloudBrigade/cloudbrigade-deepblaster).
+The DeepBlaster project is a sample application built on top of the existing AWS DeepRacer application which uses object detection machine learning model through which the Cloud Brigade DeepBlaster device can identify and target an object. Explore the DeepBlaster project by cloning the [cloudbrigade-deepblaster](https://github.com/CloudBrigade/cloudbrigade-deepblaster).
 
 The DeepBlaster application uses many nodes from the AWS DeepRacer core application as is and adds a few specific extension to the shared nodes. This application is built to work alongside the AWS DeppRacer core application so that we can run both of the applications simultaneously.
 
@@ -37,7 +37,7 @@ The DeepBlaster project is built to work on **AWS Deepracer** with a single came
 * 2 30A Mosfet boards
 * Arduino Nano Every board or similar (see hardware requirements for Servo library)
 * RC servo
-* Misc cabling
+* Misc cabling and mounting hardware
 
 * **Recommended**
 * [Upgraded adjustable shocks] (https://www.amazon.com/Hobbypark-Aluminum-Absorber-Assembled-Replacement/dp/B019XU3C3O)
@@ -48,7 +48,7 @@ The DeepBlaster project is built to work on **AWS Deepracer** with a single came
 
 You can also connect an **Intel Neural Compute Stick 2** to the USB slot at the rear end of the car as depicted to improve the inference performance.
 
-![ftl-deepracer](/media/ftl-deepracer.png)
+![deepblaster-thumb](/media/deepblaster-thumb.jpg)
 
 ## Main Components
 
@@ -70,7 +70,7 @@ The DeepBlaster project introduces a new function in the AWS Deepracer device, a
 
 When the DeepBlaster is armed, the DeepRacer devices takes the camera image input from the front facing camera connected to the car and runs it through the machine learning model to identify an object ("bottle" by default) and calculate information required to aim the turret toward the object. Similar to the autonomous mode, there is an perception-inference-action step involved here as well, where the inference is done by an object detection model to obtain the bounding box data for a object identified in the image. Each perception-inference-action step involves a pipeline of a series of ROS messages published/subscribed at various nodes, to publish camera image, and then to publish the object detection deltas identifying person’s position and corresponding action data to follow the person.
 
-![ftl-flow](/media/ftl-flow.png)
+![deepblaster-workflow](media/deepblaster_workflow.jpg)
 
 
 ### Inference (Decision)
@@ -79,7 +79,7 @@ The inference step is handled by the Object Detection ROS package that creates t
 
 For each input image, the node will detect object and get coordinates of center of bounding box and calculate the (x, y) delta of the [current position of detected object - target position] is calculated as shown in the figure below:
 
-![ftl-object-detection-bb](/media/ftl-object-detection-bb.png)
+![deepblaster-object-detection-bb](/media/deepblaster-object-detection-bb.png)
 
 This delta value is published as the DetectionDeltaMsg data to /deepblaster_object_detection_pkg/object_detection_delta topic which will be read by the DeepBlaster targeting node. If no object is detected in a image, the object_detection_node publishes a zero error (delta) signifying that the DeepBlaster take no action and need not move.
 
@@ -90,9 +90,15 @@ The DeepBlaster Targeting ROS package creates the deepblaster_targeting_node whi
 
 **Static Action Space:**
 
-![ftl-navigation-moves](/media/ftl-navigation-moves.png)
+As of this version, the DeepBlaster uses a simple "static" action space to aim the turret using object detection data from the onboard DeepRacer camera. Because the onboard camera is in a fixed position, the turret will be pointed in the nearest action space location to the object detection delta {delta_x}.
 
-Based on the above diagram, we can see that there are 5 different cases to handle with respect to the {delta_x, delta_y} values. These {delta_x, delta_y} values define the difference in the target position to the center of the bounding box in the current image that was run through object detection. We have defined the following simple action space to handle these 9 cases:
+**Dynamic Action Space:**
+
+A future version of DeepBlaster will provide for a second turret mounted camera which will allow for a more accurate "dynamic" action space, allowing for continual adjustment of the turret angle until the object detection delta {delta_x} is zero. Additionally a second servo to adjust turret height can be added, and tied to the object detection delta {delta_y}
+
+![deepblaster-static-action-space](/media/deepblaster-static-action-space.jpg)
+
+Based on the above diagram, we can see that there are 5 different cases to handle with respect to the {delta_x} values. These {delta_x} values define the difference in the target position to the center of the bounding box in the current image that was run through object detection. We have defined the following simple action space to handle these 5 cases:
 
 |   Case    |     Turret     |
 | --------- | -------------- |
@@ -102,13 +108,13 @@ Based on the above diagram, we can see that there are 5 different cases to handl
 |     4     |    Right       |
 |     5     |    Far Right   |
 
-It is important to map specific thresholds for the {delta_x, delta_y} values to the actions defined above in order to ensure a safe and meaningful selection of actions. These actual delta values to trigger each of the action from the above action space was defined by empirically collecting the {delta_x, delta_y} value of the object (person standing in front of camera) at different positions with respect to the camera of the DeepRacer device. The grid diagram below shows a top down view of the placement positions with the car with camera placed at the bottom.
+It is important to map specific thresholds for the {delta_x} values to the actions defined above in order to ensure a safe and meaningful selection of actions, and to minimize servo jerkiness. These actual delta values to trigger each of the action from the above action space was defined by empirically collecting the {delta_x} value of the object (object detected in front of camera) at different positions with respect to the camera of the DeepRacer device. The grid diagram below shows a top down view of the placement positions with the car with camera placed at the bottom.
 
-![ftl-detection-delta-calculation-experiment-placement](/media/ftl-detection-delta-calculation-experiment-placement.png)
+![deepblaster-detection-delta-calculation-experiment-placement](/media/deepblaster-detection-delta-calculation-experiment-placement.png)
 
 The average of the changes in x and y (delta_x and delta_y) for over 3 x 20 incidents for each position is shared below. These {delta_x, delta_y} values with respect to the object (person) position from the camera enables us to create a safe distance bracket for valid actions. These brackets are then mapped to the steering and the speed values required by the DeepRacer servo node.
 
-![ftl-detection-delta-calculation-experiment-results](/media/ftl-detection-delta-calculation-experiment-results.png)
+![deepblaster-detection-delta-calculation-experiment-results](/media/deepblaster-detection-delta-calculation-experiment-results.jpg)
 
 Based on the data collected, we get the following brackets:
 
@@ -119,14 +125,15 @@ Based on the data collected, we get the following brackets:
 * FAST_LEFT: With respect to 45 cm Left
 * SLOW_RIGHT: With respect to 15 cm Right
 * FAST_RIGHT: With respect to 45 cm Right
+* FIRE: Object detected, when the object is positioned on the straight line of sight with respect to camera
 
 **Firing:**
 
-* DEFAULT: Motor Off
-* FLYWHEEL
-* TRIGGER
+* DEFAULT: Motors Off
+* FLYWHEEL: Object detected
+* TRIGGER: Object detection delta is zero
 
-For every combination of the normalized delta combination in x and y (delta_x and delta_y), based on the above brackets of actions for steering and throttle, an action is planned by the deepblaster_targeting_node and published to be picked up by the deepblaster_ctrl_node when the node has been armed.
+For every combination of the normalized delta combination in x (delta_x), based on the above brackets of actions for aiming and firing, an action is planned by the deepblaster_targeting_node and published to be picked up by the deepblaster_ctrl_node when the node has been armed.
 
 Hence, using this pipeline for Perception - Inference - Action on a loop, the DeepRacer detects an object, plans what action is needed to bring the turret to the target position and takes the action for each image it infers on, thus achieving the goal of blasting the target.
 
@@ -147,7 +154,7 @@ This project can be used as a guide to think about more interesting applications
 
 In particular the AWS DeepRacer lacks additional ports to control servos and other electronics. The DeepBlaster Controller python and Arduino code provides a [robust serial control protocol](https://github.com/araffin/arduino-robust-serial) as well as [Servo Trajectory Controller](https://github.com/chillibasket/arduino-classes/tree/master/servo-trajectory) providing the capability to adjust servo speed rapidly while providing for smooth acceleration and deceleration, intended to minimize motion induced blur in the turret mounted camera. Additional logic is provided to control motors. Conceivably you could add sensors to the Arduino and send communication back to the Blaster Control Node, and publish those messages to other nodes.
 
-## Competative Games
+## Competitive Games
 
 One inspiration for this project was the possibility of extending the DeepRacer Racing League with an offshoot. In this case cars would compete to complete a track in the shortest period of time, however the total score would be calculated by the number of objects successfully neutralized along the way.
 
