@@ -27,32 +27,25 @@ class DeltaValueMap():
 
        Experiment results with object placed at different positions wrt camera:
 
-                                       <-Reverse->  <-NoAct->  <-Forward->
-
-       LR/        |   Ahead->        30 cm    60 cm   90 cm   120 cm  150 cm
-       --------------------------------------------------------------------
+       Left/Right   Obj Delta      Range [0-1]
+       ----------------------------------------
        45 cm      |              |
-       Left       | delta_x      |    N/A     -0.37   -0.33   -0.25   -0.22
-                  | delta_y      |    N/A     -0.06   -0.11   -0.14   -0.15
+       Left       | delta_x      |   -0.33
        15 cm      |              |
-       Left       | delta_x      |   -0.25    -0.20   -0.13   -0.12   -0.09
-                  | delta_y      |    0.11    -0.06   -0.11   -0.14   -0.15
+       Left       | delta_x      |   -0.13
        0 cm       |              |
-       Left/Right | delta_x      |       0        0       0       0       0
-                  | delta_y      |    0.11    -0.06   -0.11   -0.14   -0.15
+       Left/Right | delta_x      |      0
        15 cm      |              |
-       Right      | delta_x      |    0.25     0.20    0.13    0.12    0.09
-                  | delta_y      |    0.11    -0.06   -0.11   -0.14   -0.15
+       Right      | delta_x      |    0.13
        45 cm      |              |
-       Right      | delta_x      |    N/A      0.37    0.33    0.25    0.22
-                  | delta_y      |    N/A     -0.06   -0.11   -0.14   -0.15
+       Right      | delta_x      |    0.33
 
     """
-    SLOW_RIGHT_DELTA_X = 0.13
-    FAST_RIGHT_DELTA_X = 0.33
-    SLOW_LEFT_DELTA_X = -0.13
-    FAST_LEFT_DELTA_X = -0.33
-    FIRE_DELTA_Y = 0.0
+    SHORT_RIGHT_DELTA_X = 0.13
+    FAR_RIGHT_DELTA_X = 0.33
+    SHORT_LEFT_DELTA_X = -0.13
+    FAR_LEFT_DELTA_X = -0.33
+    FIRE_DELTA_X = 0.0
 
 
 class ActionSpaceKeys():
@@ -61,6 +54,7 @@ class ActionSpaceKeys():
     ACTION = "action"
     XANGLE = "xangle"
     YANGLE = "yangle"
+    FLYWHEEL = "flywheel"
     CATEGORY = "category"
 
 
@@ -69,10 +63,10 @@ class ActionValues():
        the possible actions that can be sent to servo, pertaining to
        the angle and throttle.
     """
-    FAST_LEFT = 68
-    SLOW_LEFT = 88
-    FAST_RIGHT = 108
-    SLOW_RIGHT = 128
+    FAR_LEFT = 68
+    SHORT_LEFT = 88
+    FAR_RIGHT = 108
+    SHORT_RIGHT = 128
     SPINUP = 1
     FIRE = 1
     SAFE = 0
@@ -87,30 +81,35 @@ ACTION_SPACE = {
         ActionSpaceKeys.ACTION: "No Action",
         ActionSpaceKeys.XANGLE: ActionValues.XDEFAULT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SAFE,
         ActionSpaceKeys.CATEGORY: 1
     },
     2: {
-        ActionSpaceKeys.ACTION: "Slow Left",
-        ActionSpaceKeys.XANGLE: ActionValues.SLOW_LEFT,
+        ActionSpaceKeys.ACTION: "Short Left",
+        ActionSpaceKeys.XANGLE: ActionValues.SHORT_LEFT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 2
     },
     3: {
-        ActionSpaceKeys.ACTION: "Fast Left",
-        ActionSpaceKeys.XANGLE: ActionValues.FAST_LEFT,
+        ActionSpaceKeys.ACTION: "Far Left",
+        ActionSpaceKeys.XANGLE: ActionValues.FAR_LEFT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 3
     },
     4: {
-        ActionSpaceKeys.ACTION: "Slow Right",
-        ActionSpaceKeys.XANGLE: ActionValues.SLOW_RIGHT,
+        ActionSpaceKeys.ACTION: "Short Right",
+        ActionSpaceKeys.XANGLE: ActionValues.SHORT_RIGHT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 4
     },
     5: {
-        ActionSpaceKeys.ACTION: "Fast Right",
-        ActionSpaceKeys.XANGLE: ActionValues.FAST_RIGHT,
+        ActionSpaceKeys.ACTION: "Far Right",
+        ActionSpaceKeys.XANGLE: ActionValues.FAR_RIGHT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 5
     }
 }

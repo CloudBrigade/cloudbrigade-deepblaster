@@ -132,19 +132,19 @@ class DBTargetingNode(Node):
 
         # elif delta_y >= constants.DeltaValueMap.FIRE_DELTA_Y:
         # Forward Bracket
-        if delta_x < constants.DeltaValueMap.SLOW_LEFT_DELTA_X \
-                and delta_x > constants.DeltaValueMap.FAST_LEFT_DELTA_X:
-            # Slow Left
+        if delta_x < constants.DeltaValueMap.SHORT_LEFT_DELTA_X \
+                and delta_x > constants.DeltaValueMap.FAR_LEFT_DELTA_X:
+            # Short Left
             return constants.ACTION_SPACE[2][constants.ActionSpaceKeys.CATEGORY]
-        elif delta_x <= constants.DeltaValueMap.FAST_LEFT_DELTA_X:
-            # Fast Left
+        elif delta_x <= constants.DeltaValueMap.FAR_LEFT_DELTA_X:
+            # Far Left
             return constants.ACTION_SPACE[3][constants.ActionSpaceKeys.CATEGORY]
-        elif delta_x > constants.DeltaValueMap.SLOW_RIGHT_DELTA_X \
-                and delta_x < constants.DeltaValueMap.FAST_RIGHT_DELTA_X:
-            # Slow Right
+        elif delta_x > constants.DeltaValueMap.SHORT_RIGHT_DELTA_X \
+                and delta_x < constants.DeltaValueMap.FAR_RIGHT_DELTA_X:
+            # Short Right
             return constants.ACTION_SPACE[4][constants.ActionSpaceKeys.CATEGORY]
-        elif delta_x >= constants.DeltaValueMap.FAST_RIGHT_DELTA_X:
-            # Fast Right
+        elif delta_x >= constants.DeltaValueMap.FAR_RIGHT_DELTA_X:
+            # Far Right
             return constants.ACTION_SPACE[5][constants.ActionSpaceKeys.CATEGORY]
         else:
             # No Action
