@@ -48,9 +48,60 @@ The DeepBlaster project is built to work on **AWS Deepracer** with a single came
 
 You can also connect an **Intel Neural Compute Stick 2** to the USB slot at the rear end of the car as depicted to improve the inference performance.
 
-![deepblaster-thumb](/media/deepblaster-thumb.jpg)
+![deepracer-ncs2-mounted](/media/deepracer-ncs2-mounted.jpg)
 
-## Main Components
+**Building the Jupiter Blaster**
+
+If you choose to purchase a Jupiter Blaster from Out Of Darts, instructions for building the blaster [including a video](https://www.youtube.com/watch?v=OQmhm2NQptM) are provided.
+
+We recommend excluding the blaster handle in your build as it is unnecessary and adds weight to the build.
+
+PLEASE NOTE: The wiring diagram for the DeepBlaster is different than what is provided by Out Of Darts. We exclude the microswitches provided, and instead use Mosfets to switch the loads from the Arduino. The wiring diagram is substantially different because the Mosfets switch both the positive and negative sides of the circuit. Please follow the DeepBlaster wiring diagram below.
+
+**Wiring Diagram for Electronics**
+
+Below is the complete wiring diagram for the DeepBlaster Blaster Control Module (Arduino), X-axis Servo motor, and Jupiter Blaster with Mosfets.
+
+This prototype was built using the Arduino MKR 1010 which includes unused components such as wifi and bluetooth. We recommend the Arduino Nano Every due to lower size and cost.
+
+PLEASE NOTE: The Arduino MKR series and the Arduino Nano Every series of microcontrollers use different pin locations. If you use an Arduino Nano Every, you will need to modify the wiring diagram, as well as the pin definitions in the code if they are changed.
+
+WARNING: The Jupiter Blaster Flywheels must be spinning prior to feeding ammo with the feeder motor. Failure to observe this warning will result in damage to the Mosfet, motor, wiring, etc. It is recommended that you do not load ammo into your DeepBlaster until you have confirmed proper operation after assembly.
+
+WARNING: Inserting the Nerf Magazine will deploy a single ammo ball into the feeder motor (even without power). This will result in a possible jam of the flywheels unexpectedly. You can clear the ammo using a ball point pin, pencil, screwdriver, etc. Don't use your fingers...
+
+![deepblaster-circuit-diagram](media/deepblaster-circuit-diagram.jpg)
+
+**Installing the DeepBlaster Hardware on AWS DeepRacer**
+
+You can install the DeepBlaster hardware by following these steps.
+
+1. Remove the shell and shell mounts
+
+![deepracer-shell-removal](media/deepracer-shell-removal.jpg)![deepracer-shell-mount-screw](media/deepracer-shell-mount-screw.jpg)![deepracer-shell-mount](media/deepracer-shell-mount.jpg)
+
+2. Mount the DeepBlaster turret and bracket assembly
+
+![deepblaster-turret-mount](media/deepblaster-turret-mount.jpg)
+
+3. Attach the DeepBlaster blaster mounting plate
+
+![deepblaster-mount-plate](media/deepblaster-mount-plate.jpg)
+
+4. Attach the Jupiter Blaster and Mosfets
+
+![deepblaster-assembled](media/deepblaster-assembled.jpg)
+
+5. Mount DeepBlaster Control Module (Arduino)
+6. Attach cables and affix to cable routing tabs
+
+![deepblaster-ncs2-arduino](media/deepblaster-ncs2-arduino.jpg)
+
+**Building the DeepBlaster Software on AWS DeepRacer**
+
+Please see the project [README.md](https://github.com/CloudBrigade/cloudbrigade-deepblaster/blob/main/README.md) for instructions on how to build the software.
+
+## Software Main Components
 
 There are 5 packages (ROS Nodes) that are of importance for the DeepBlaster project.
 
