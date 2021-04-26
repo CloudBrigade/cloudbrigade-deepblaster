@@ -149,9 +149,8 @@ Once the deepblaster_launcher has been kicked-off, open up a adjacent new termin
 
 The deepblaster_launcher.py included in this package is the main launcher file that launches all the required nodes for the DeepBlaster project. This launcher file also includes the nodes from the AWS DeepRacer core application.
 
-from launch import LaunchDescription
-from launch_ros.actions import Node
-
+      from launch import LaunchDescription
+      from launch_ros.actions import Node
 
       def generate_launch_description():
           ld = LaunchDescription()
