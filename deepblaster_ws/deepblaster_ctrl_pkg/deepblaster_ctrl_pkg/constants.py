@@ -14,7 +14,7 @@
 #   limitations under the License.                                              #
 #################################################################################
 
-ACTION_PUBLISH_TOPIC = "deepblaster_ctrl"
+ACTION_PUBLISH_TOPIC = "deepblaster_ctrl_serial"
 #SET_MAX_SPEED_SERVICE_NAME = "set_max_speed"
 
 DB_TARGETING_PKG_NS = "/deepblaster_targeting_pkg"
@@ -41,15 +41,17 @@ class ActionValues():
        the possible actions that can be sent to servo, pertaining to
        the angle and throttle.
     """
-    FAR_LEFT = 80
-    SHORT_LEFT = 90
-    FAR_RIGHT = 110
-    SHORT_RIGHT = 120
+    FAR_LEFT = 75
+    MID_LEFT = 80
+    SHORT_LEFT = 85
+    XDEFAULT = 90
+    SHORT_RIGHT = 95
+    MID_RIGHT = 100
+    FAR_RIGHT = 105
     SPINUP = 1
     FIRE = 1
     SAFE = 0
     DEFAULT = 0
-    XDEFAULT = 98
     YDEFAULT = 90
 
 # Default value to sleep for in sec.

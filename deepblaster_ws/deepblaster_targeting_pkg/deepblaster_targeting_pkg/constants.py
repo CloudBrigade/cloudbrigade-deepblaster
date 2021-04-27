@@ -42,10 +42,13 @@ class DeltaValueMap():
 
     """
     SHORT_RIGHT_DELTA_X = 0.13
+    MID_RIGHT_DELTA_X = 0.23
     FAR_RIGHT_DELTA_X = 0.33
     SHORT_LEFT_DELTA_X = -0.13
+    MID_LEFT_DELTA_X = -0.23
     FAR_LEFT_DELTA_X = -0.33
     FIRE_DELTA_X = 0.0
+    FIRE_DELTA_Y = 0.0
 
 
 class ActionSpaceKeys():
@@ -63,17 +66,18 @@ class ActionValues():
        the possible actions that can be sent to servo, pertaining to
        the angle and throttle.
     """
-    FAR_LEFT = 68
-    SHORT_LEFT = 88
-    FAR_RIGHT = 108
-    SHORT_RIGHT = 128
+    FAR_LEFT = 75
+    MID_LEFT = 80
+    SHORT_LEFT = 85
+    XDEFAULT = 90
+    SHORT_RIGHT = 95
+    MID_RIGHT = 100
+    FAR_RIGHT = 105
     SPINUP = 1
     FIRE = 1
     SAFE = 0
     DEFAULT = 0
-    XDEFAULT = 98
     YDEFAULT = 90
-
 
 # Action Space configuration.
 ACTION_SPACE = {
@@ -92,25 +96,39 @@ ACTION_SPACE = {
         ActionSpaceKeys.CATEGORY: 2
     },
     3: {
-        ActionSpaceKeys.ACTION: "Far Left",
-        ActionSpaceKeys.XANGLE: ActionValues.FAR_LEFT,
+        ActionSpaceKeys.ACTION: "Mid Left",
+        ActionSpaceKeys.XANGLE: ActionValues.MID_LEFT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
         ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 3
     },
     4: {
-        ActionSpaceKeys.ACTION: "Short Right",
-        ActionSpaceKeys.XANGLE: ActionValues.SHORT_RIGHT,
+        ActionSpaceKeys.ACTION: "Far Left",
+        ActionSpaceKeys.XANGLE: ActionValues.FAR_LEFT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
         ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
         ActionSpaceKeys.CATEGORY: 4
     },
     5: {
+        ActionSpaceKeys.ACTION: "Short Right",
+        ActionSpaceKeys.XANGLE: ActionValues.SHORT_RIGHT,
+        ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
+        ActionSpaceKeys.CATEGORY: 5
+    },
+    6: {
+        ActionSpaceKeys.ACTION: "Mid Right",
+        ActionSpaceKeys.XANGLE: ActionValues.MID_RIGHT,
+        ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
+        ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
+        ActionSpaceKeys.CATEGORY: 6
+    },
+    7: {
         ActionSpaceKeys.ACTION: "Far Right",
         ActionSpaceKeys.XANGLE: ActionValues.FAR_RIGHT,
         ActionSpaceKeys.YANGLE: ActionValues.YDEFAULT,
         ActionSpaceKeys.FLYWHEEL: ActionValues.SPINUP,
-        ActionSpaceKeys.CATEGORY: 5
+        ActionSpaceKeys.CATEGORY: 7
     }
 }
 

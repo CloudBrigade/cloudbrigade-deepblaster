@@ -35,6 +35,7 @@ endif()
 
 set(msg_files
   "msg/BlasterCtrlMsg.msg"
+  "msg/BlasterCtrlSerialMsg.msg"
   "msg/DetectionDeltaMsg.msg"
 )
 set(srv_files

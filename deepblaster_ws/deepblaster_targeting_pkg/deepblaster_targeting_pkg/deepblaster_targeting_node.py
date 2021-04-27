@@ -126,26 +126,34 @@ class DBTargetingNode(Node):
         delta_y = delta[1]
 
         # Delta_Y could be used to determine when we are close enough to fire blaster
-        if delta_y < constants.DeltaValueMap.FIRE_DELTA_Y:
-            # Fire!
-            return constants.ACTION_SPACE[7][constants.ActionSpaceKeys.CATEGORY]
+        # if delta_y < constants.DeltaValueMap.FIRE_DELTA_Y:
+        #     # Fire!
+        #     return constants.ACTION_SPACE[7][constants.ActionSpaceKeys.CATEGORY]
 
         # elif delta_y >= constants.DeltaValueMap.FIRE_DELTA_Y:
         # Forward Bracket
         if delta_x < constants.DeltaValueMap.SHORT_LEFT_DELTA_X \
-                and delta_x > constants.DeltaValueMap.FAR_LEFT_DELTA_X:
+                and delta_x > constants.DeltaValueMap.MID_LEFT_DELTA_X:
             # Short Left
             return constants.ACTION_SPACE[2][constants.ActionSpaceKeys.CATEGORY]
+        elif delta_x < constants.DeltaValueMap.MID_LEFT_DELTA_X \
+                and delta_x > constants.DeltaValueMap.FAR_LEFT_DELTA_X:
+            # Mid Left
+            return constants.ACTION_SPACE[3][constants.ActionSpaceKeys.CATEGORY]
         elif delta_x <= constants.DeltaValueMap.FAR_LEFT_DELTA_X:
             # Far Left
-            return constants.ACTION_SPACE[3][constants.ActionSpaceKeys.CATEGORY]
-        elif delta_x > constants.DeltaValueMap.SHORT_RIGHT_DELTA_X \
-                and delta_x < constants.DeltaValueMap.FAR_RIGHT_DELTA_X:
-            # Short Right
             return constants.ACTION_SPACE[4][constants.ActionSpaceKeys.CATEGORY]
+        elif delta_x > constants.DeltaValueMap.SHORT_RIGHT_DELTA_X \
+                and delta_x < constants.DeltaValueMap.MID_RIGHT_DELTA_X:
+            # Short Right
+            return constants.ACTION_SPACE[5][constants.ActionSpaceKeys.CATEGORY]
+        elif delta_x > constants.DeltaValueMap.MID_RIGHT_DELTA_X \
+                and delta_x < constants.DeltaValueMap.FAR_RIGHT_DELTA_X:
+            # Mid Right
+            return constants.ACTION_SPACE[6][constants.ActionSpaceKeys.CATEGORY]
         elif delta_x >= constants.DeltaValueMap.FAR_RIGHT_DELTA_X:
             # Far Right
-            return constants.ACTION_SPACE[5][constants.ActionSpaceKeys.CATEGORY]
+            return constants.ACTION_SPACE[7][constants.ActionSpaceKeys.CATEGORY]
         else:
             # No Action
             return constants.ACTION_SPACE[1][constants.ActionSpaceKeys.CATEGORY]
@@ -167,15 +175,15 @@ class DBTargetingNode(Node):
         x_angle = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.XANGLE]
         y_angle = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.YANGLE]
 
-        # if object is detected, we should spinup flywheels in preparation for firing
-        # flywheel = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.FLYWHEEL]
-        # else
+        #if object is detected, we should spinup flywheels in preparation for firing
+        flywheel = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.FLYWHEEL]
+        #else
         flywheel = constants.ActionValues.SAFE
 
         # if object detection x_delta is near zero, and flywheels are spinning, fire!
-        # trigger = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.TRIGGER]
+        trigger = constants.ACTION_SPACE[action_category][constants.ActionSpaceKeys.FLYWHEEL]
         # else
-        trigger = constants.ActionValues.SAFE
+        # trigger = constants.ActionValues.SAFE
         return x_angle, y_angle, flywheel, trigger
 
     def action_publish(self, msg):

@@ -40,7 +40,8 @@ from rclpy.qos import (QoSProfile,
                        QoSHistoryPolicy,
                        QoSReliabilityPolicy)
 
-from deepblaster_interfaces_pkg.msg import (BlasterCtrlMsg)
+from deepblaster_interfaces_pkg.msg import (BlasterCtrlMsg,
+                                          BlasterCtrlSerialMsg)
 from deepblaster_ctrl_pkg import (constants,
                                 utils)
 
@@ -70,9 +71,9 @@ class DBBlasterCtrlNode(Node):
                                      qos_profile)
 
         ### @TODO # Creating publisher to publish action (servo angles, flywheel, and trigger).
-        ### self.action_publisher = self.create_publisher(ServoCtrlMsg,
-        ###                                               constants.ACTION_PUBLISH_TOPIC,
-        ###                                               qos_profile)
+        self.action_publisher = self.create_publisher(BlasterCtrlSerialMsg,
+                                                       constants.ACTION_PUBLISH_TOPIC,
+                                                       qos_profile)
 
         # Initializing the msg to be published.
         msg = BlasterCtrlMsg()
@@ -149,7 +150,7 @@ class DBBlasterCtrlNode(Node):
                                            and flywheel/trigger commands
         """
 
-        self.get_logger().info(f"Received Values: {deepblaster_targeting}")
+        #self.get_logger().info(f"Received Values: {deepblaster_targeting}")
         self.targeting_buffer.put(deepblaster_targeting)
 
     def action_transmit(self, msg):
@@ -172,10 +173,17 @@ class DBBlasterCtrlNode(Node):
                 write_order(self.serial_file, Order.XSERVO)
                 write_i16(self.serial_file, msg.x_angle)
                 order = read_order(self.serial_file)
-                self.get_logger().info("Ordered received: {order}")
-
-                # @TODO Publish msg based on what was sent or received from Blaster Controller
-                # self.action_publisher.publish(msg)
+                write_order(self.serial_file, Order.YSERVO)
+                write_i16(self.serial_file, msg.y_angle)
+                order = read_order(self.serial_file)
+                write_order(self.serial_file, Order.FLYWHEEL)
+                write_i16(self.serial_file, msg.flywheel)
+                order = read_order(self.serial_file)
+                write_order(self.serial_file, Order.TRIGGER)
+                write_i16(self.serial_file, msg.trigger)
+                order = read_order(self.serial_file)
+                #self.get_logger().info("Ordered received: {order}")
+                self.action_publisher.publish(msg)
 
                 # Sleep for a default amount of time before checking if new data is available.
                 time.sleep(constants.DEFAULT_SLEEP)
@@ -188,7 +196,6 @@ class DBBlasterCtrlNode(Node):
             self.get_logger().error(f"Failed to transmit action to Blaster Controller: {ex}")
             # Center the Blaster
             msg.x_angle, msg.y_angle, msg.flywheel, msg.trigger = constants.ActionValues.XDEFAULT, constants.ActionValues.YDEFAULT, constants.ActionValues.SAFE, constants.ActionValues.SAFE
-            # Destroy the ROS Node running in another thread as well.
 
 def main(args=None):
     rclpy.init(args=args)
